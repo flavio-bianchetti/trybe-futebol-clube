@@ -1,13 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import { ITeam } from '../interfaces';
+import Match from './Match';
 // import OtherModel from './OtherModel';
 
 class Team extends Model<ITeam> {
   // public <campo>!: <tipo>;
-  public id: number;
+  public id!: number;
 
-  public teamName: string;
+  public teamName!: string;
 }
 
 Team.init({
@@ -28,7 +29,7 @@ Team.init({
   underscored: true,
   sequelize: db,
   // modelName: 'example',
-  modelName: 'Team',
+  modelName: 'team',
   // tableName: 'teams',
   timestamps: false,
 });

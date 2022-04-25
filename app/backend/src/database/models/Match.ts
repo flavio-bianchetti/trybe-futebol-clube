@@ -57,7 +57,7 @@ Match.init({
   underscored: true,
   sequelize: db,
   // modelName: 'example',
-  modelName: 'Match',
+  modelName: 'match',
   // tableName: 'matches',
   timestamps: false,
 });
@@ -70,10 +70,13 @@ Match.init({
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 
-Team.belongsTo(Match, { foreignKey: 'home_team', as: 'id' });
-Team.belongsTo(Match, { foreignKey: 'away_team', as: 'id' });
+Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'homeTeamFkMatch' }); // as .... relacionamento
+Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'awayTeamFkMatch' });
 
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
+
+Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeTeamFkTeam' });
+Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'homeTeamFkTeam' });
 
 export default Match;
