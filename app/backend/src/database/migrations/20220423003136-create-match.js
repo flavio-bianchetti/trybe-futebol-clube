@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
         references:{
           model: 'teams',
-          foreignKey: 'id',
+          key: 'id',
         },
       },
       home_team_goals: {
@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
         references:{
           model: 'teams',
-          foreignKey: 'id',
+          key: 'id',
         },
       },
       away_team_goals: {
