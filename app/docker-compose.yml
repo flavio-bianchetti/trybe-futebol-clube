@@ -12,6 +12,8 @@ services:
       test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
       timeout: 10s
       retries: 5
+    ports:
+      - "3000:3000"
   backend:
     build: ./backend
     container_name: app_backend
@@ -31,6 +33,8 @@ services:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s
       retries: 5
+    ports:
+      - "3001:3001"
   db:
     image: mysql:8.0.21
     container_name: app_db
