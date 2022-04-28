@@ -15,4 +15,18 @@ export default class UserController {
       res.status(500).json({ error: err });
     }
   };
+
+  public static getRole = async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization || '';
+      const result = await UserService.getUserRole(token);
+
+      if (!result) return res.status(401).json({ message: 'Unauthorized' });
+
+      return res.status(200).send(result);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err });
+    }
+  };
 }
