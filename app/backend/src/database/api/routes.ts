@@ -8,5 +8,6 @@ const routes = Router();
 routes.use(cors());
 
 routes.post('/login', LoginValidatorMiddleware.validate, UserController.create);
+routes.get('/login/validate', UserController.getRole);
 
 export default routes;
