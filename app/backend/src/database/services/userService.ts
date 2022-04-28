@@ -22,4 +22,12 @@ export default class UserService {
     };
     return result as IUserToken;
   };
+
+  public static getUserRole = async (token: string): Promise<string | undefined> => {
+    const email = await Token.verify(token);
+    if (!email) return undefined;
+    const user: IUser | null = await User.findOne({ where: { email: email } });
+    if (!user) return undefined;
+    return user.role;
+  };
 }
