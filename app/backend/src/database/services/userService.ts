@@ -26,7 +26,7 @@ export default class UserService {
   public static getUserRole = async (token: string): Promise<string | undefined> => {
     const email = await Token.verify(token);
     if (!email) return undefined;
-    const user: IUser | null = await User.findOne({ where: { email: email } });
+    const user: IUser | null = await User.findOne({ where: { email } });
     if (!user) return undefined;
     return user.role;
   };
