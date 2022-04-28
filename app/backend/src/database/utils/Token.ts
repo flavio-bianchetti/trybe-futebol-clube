@@ -11,5 +11,17 @@ export default class Token {
       { expiresIn: '7d', algorithm: 'HS256' },
     );
     return token;
-  }
+  };
+
+  public static verify = async (token: string): Promise<string | undefined> => {
+    try {
+      const secret: string = await FileHandler.readFile('jwt.evaluation.key');
+      const decoded = jwt.verify(token, secret);
+      if (typeof decoded === 'string') return undefined;
+      return decoded.data.email ? decoded.data.email : undefined;
+    } catch (err) {
+      console.error(`Erro encontrado: ${err}`);
+      return undefined;
+    }
+  };
 }
