@@ -45,3 +45,44 @@ describe('15 - A aplicação deve ter o endpoint GET /teams', () => {
       expect (chaiHttpResponse.body.length).to.equal(6);
   });
 });
+
+describe('15 - A aplicação deve ter o endpoint GET /teams/:id', () => {
+
+    beforeEach( async () => {
+      exec('npm run db:reset');
+    });
+  
+    afterEach(async () => {
+      (Team.findByPk as sinon.SinonStub).restore();
+    });
+  
+    it('retorna uma mensagem de erro se o time não for encontrado', async () => {
+  
+      sinon.stub(Team, 'findByPk').resolves(null);
+  
+      const chaiHttpResponse = await chai
+        .request(app)
+        .get('/teams/55')
+        .send();
+  
+        expect(chaiHttpResponse).to.be.null;
+        expect(chaiHttpResponse).to.have.status(401);
+    });
+
+    it('recebe o time com o ID informado.', async () => {
+  
+      sinon.stub(Team, 'findByPk').resolves({
+        id: 5, teamName: 'Cruzeiro',
+      } as any | ITeam);
+  
+      const chaiHttpResponse = await chai
+        .request(app)
+        .get('/teams/5')
+        .send();
+  
+        expect(chaiHttpResponse).not.to.be.null;
+        expect(chaiHttpResponse).to.have.status(200);
+        expect(chaiHttpResponse.body).to.have.property('id');
+        expect(chaiHttpResponse.body).to.have.property('teamName');
+    });
+  });
