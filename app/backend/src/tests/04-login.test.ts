@@ -4,67 +4,31 @@ import 'chai-http';
 
 import { app } from '../app';
 import User from '../database/models/User';
-// import Example from '../database/models/ExampleModel';
 
-import { Response } from 'superagent';
-// import { IUser } from '../database/interfaces';
 import { exec } from 'child_process';
-// import { setEnvironmentData } from 'worker_threads';
+import { IUser } from '../database/interfaces';
 
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19480
 chai.use(require('chai-http'));
 
 const { expect } = chai;
 
-// teste end-to-end
-  // entra com os campos email e password
-  // retorna token ou uma mensagem de erro.
-
-  // testes:
-  // A aplicação deve ter o endpoint POST /login e
-  // - a aplicação não recebe os campos email e/ou password
-  // - a aplicação recebe os campos email e/ou password vazios.
-  // - a aplicação recebe os campos corretamente preenchidos, porém não encontra o usuário no DB.
-  // - a aplicação recebe os campos corretamente preenchidos e encontra o usuário.
-
 describe('4 - A aplicação deve ter o endpoint POST /login', () => {
 
-  // it('não recebe os campos email e/ou password', async () => {
-  //   sinon.mock(models.User)
-  //     .expects('findOne')
-  //     .returns([]);
-    
-  //   await chai
-  //     .request(app).post('/login')
-  //     .end(function (err) {
-  //       expect(err).to.have.status(401);
-  //     });
-  // });
-
-  // it('recebe os campos email e/ou password vazios.', async () => {
-  //   sinon.mock(models.User)
-  //     .expects('findOne')
-  //     .withArgs({ where: { email: ''} })
-  //     .returns([]);
-    
-  //   await chai
-  //     .request(app).post('/login')
-  //     .send({email: '', password: ''})
-  //     .end(function (err) {
-  //       expect(err).to.have.status(401);
-  //     });
-  // });
-
-  before(() => {
+  beforeEach( async () => {
     exec('npm run db:reset');
+  });
+
+  afterEach(async () => {
+    (User.findOne as sinon.SinonStub).restore();
   });
 
   it('recebe os campos corretamente preenchidos, porém não encontra o usuário no DB.', async () => {
 
-    // solução adaptada do site:
-    // https://www.chaijs.com/guide/styles/
+    sinon.stub(User, 'findOne').resolves(null);
+
     const chaiHttpResponse = await chai
-      .request(app).post('/login')
+      .request(app)
+      .post('/login')
       .send({email: 'nonexistent@email.com', password: 'access_password'});
 
       expect(chaiHttpResponse).not.to.be.null;
@@ -73,8 +37,17 @@ describe('4 - A aplicação deve ter o endpoint POST /login', () => {
 
   it('recebe os campos corretamente preenchidos e encontra o usuário.', async () => {
 
+    sinon.stub(User, 'findOne').resolves({
+      "id": 1,
+      "username": "Admin",
+      "role": "admin",
+      "email": "admin@admin.com",
+      "password": '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+    } as any | IUser);
+
     const chaiHttpResponse = await chai
-      .request(app).post('/login')
+      .request(app)
+      .post('/login')
       .send({email: 'admin@admin.com', password: 'secret_admin'});
 
       expect(chaiHttpResponse).not.to.be.null;
@@ -82,6 +55,5 @@ describe('4 - A aplicação deve ter o endpoint POST /login', () => {
       expect(chaiHttpResponse.body.user).to.have.property('id');
       expect(chaiHttpResponse.body.user).to.have.property('role');
       expect(chaiHttpResponse.body.user).to.have.property('email');
-      expect(chaiHttpResponse.body).to.have.property('token');
   });
 });
