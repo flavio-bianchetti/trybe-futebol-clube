@@ -24,18 +24,18 @@ describe('15 - A aplicação deve ter o endpoint GET /teams', () => {
 
   it('recebe uma lista com informações de todos os times cadastrados.', async () => {
 
-    sinon.stub(Team, 'findOne').resolves([
+    sinon.stub(Team, 'findAll').resolves([
       { id: 1, teamName: 'Avaí/Kindermann' },
       { id: 2, teamName: 'Bahia' },
       { id: 3, teamName: 'Botafogo' },
       { id: 4, teamName: 'Corinthians' },
       { id: 5, teamName: 'Cruzeiro' },
       { id: 6, teamName: 'Ferroviária' }
-    ] as any);
+    ] as Array<any | ITeam>);
 
     const chaiHttpResponse = await chai
       .request(app)
-      .post('/teams')
+      .get('/teams')
       .send();
 
       expect(chaiHttpResponse).not.to.be.null;
