@@ -1,3 +1,7 @@
 import UserController from './userController';
+import TeamController from './teamController';
 
-export default UserController;
+export {
+  UserController,
+  TeamController,
+};
