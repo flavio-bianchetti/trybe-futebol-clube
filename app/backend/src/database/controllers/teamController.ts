@@ -18,7 +18,7 @@ export default class TeamController {
   async (req: Request, res: Response): Promise<Response> => {
     try {
       const { id } = req.params;
-      const team = TeamService.findByPk(Number(id));
+      const team = await TeamService.findByPk(Number(id));
       if (!team) return res.status(404).json({ message: 'Team not found' });
       return res.status(200).json(team);
     } catch (err) {
