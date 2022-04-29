@@ -7,4 +7,10 @@ export default class TeamService {
     if (!teams) return undefined;
     return teams;
   };
+
+  public static findByPk = async (id: number): Promise<ITeam | undefined> => {
+    const team = await Team.findByPk(id);
+    if (!team) return undefined;
+    return team;
+  };
 }
