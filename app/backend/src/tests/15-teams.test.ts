@@ -40,8 +40,8 @@ describe('15 - A aplicação deve ter o endpoint GET /teams', () => {
 
       expect(chaiHttpResponse).not.to.be.null;
       expect(chaiHttpResponse).to.have.status(200);
-      expect(chaiHttpResponse.body).to.have.property('id');
-      expect(chaiHttpResponse.body).to.have.property('teamName');
+      expect(chaiHttpResponse.body[0]).to.have.property('id');
+      expect(chaiHttpResponse.body[0]).to.have.property('teamName');
       expect (chaiHttpResponse.body.length).to.equal(6);
   });
 });
