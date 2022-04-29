@@ -65,8 +65,8 @@ describe('15 - A aplicação deve ter o endpoint GET /teams/:id', () => {
         .get('/teams/55')
         .send();
   
-        expect(chaiHttpResponse).to.be.null;
-        expect(chaiHttpResponse).to.have.status(401);
+        expect(chaiHttpResponse.body.message).to.equal('Team not found');
+        expect(chaiHttpResponse).to.have.status(404);
     });
 
     it('recebe o time com o ID informado.', async () => {
@@ -80,7 +80,7 @@ describe('15 - A aplicação deve ter o endpoint GET /teams/:id', () => {
         .get('/teams/5')
         .send();
   
-        expect(chaiHttpResponse).not.to.be.null;
+        expect(chaiHttpResponse.body).not.to.be.null;
         expect(chaiHttpResponse).to.have.status(200);
         expect(chaiHttpResponse.body).to.have.property('id');
         expect(chaiHttpResponse.body).to.have.property('teamName');
