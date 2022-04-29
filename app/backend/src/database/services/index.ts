@@ -4,4 +4,4 @@ import TeamService from './teamService';
 export {
   UserService,
   TeamService,
-}
+};
