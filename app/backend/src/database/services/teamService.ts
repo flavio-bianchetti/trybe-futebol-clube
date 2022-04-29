@@ -1,5 +1,5 @@
-import { ITeam } from "../interfaces"
-import Team from "../models/Team"
+import { ITeam } from '../interfaces';
+import Team from '../models/Team';
 
 export default class TeamService {
   public static findAll = async (): Promise<ITeam[] | undefined> => {
