@@ -11,5 +11,6 @@ routes.post('/login', LoginValidatorMiddleware.validate, UserController.create);
 routes.get('/login/validate', UserController.getRole);
 
 routes.get('/teams', TeamController.findAll);
+routes.get('teams/:id', TeamController.findByPk);
 
 export default routes;
