@@ -1,3 +1,7 @@
 import LoginValidatorMiddleware from './loginValidatorMiddleware';
+import FindTeamParameterValidator from './findTeamParameterValidator';
 
-export default LoginValidatorMiddleware;
+export {
+  LoginValidatorMiddleware,
+  FindTeamParameterValidator,
+};
