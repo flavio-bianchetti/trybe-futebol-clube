@@ -13,7 +13,7 @@ class Match extends Model {
 
   public awayTeamGoals!: number;
 
-  public inProgress!: number;
+  public inProgress!: boolean;
 }
 
 Match.init({
@@ -39,7 +39,7 @@ Match.init({
     allowNull: false,
   },
   inProgress: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TINYINT,
     allowNull: false,
   },
 }, {
