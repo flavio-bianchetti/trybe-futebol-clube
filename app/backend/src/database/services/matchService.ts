@@ -21,12 +21,19 @@ export default class MatchService {
 
   public static create = async (match: IMatch): Promise<IMatch | undefined | null> => {
     if (match.homeTeam === match.awayTeam) return undefined;
-    Team.findAll()
-      .then((teams) => {
-        const existsTeam1 = teams.find((team) => team.id === match.homeTeam);
-        const existsTeam2 = teams.find((team) => team.id === match.awayTeam);
-        if (!existsTeam1 || !existsTeam2) return null;
-      });
+    const teams = await Team.findAll(
+      {
+        // solução adaptada do site:
+        // https://stackoverflow.com/questions/24920427/sequelize-error-when-using-where-and-in-on-a-subarray
+        where: {
+          id: { [Sequelize.Op.in]: [match.homeTeam, match.awayTeam] },
+        },
+        raw: true,
+      },
+    );
+
+    if (teams.length !== 2) return null;
+
     const result = await Match.create(match);
     if (!result) return undefined;
     return result;
