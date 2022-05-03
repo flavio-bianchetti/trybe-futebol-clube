@@ -9,7 +9,7 @@ import {
   LoginValidatorMiddleware,
   FindTeamParameterValidator,
   TokenValidator,
-  MatchValidatorMiddleware,
+  // MatchValidatorMiddleware,
 } from '../middlewares';
 
 const routes = Router();
@@ -30,7 +30,7 @@ routes.get('/matches', MatchController.findAll);
 routes.post(
   '/matches',
   TokenValidator.validate,
-  MatchValidatorMiddleware.validate,
+  // MatchValidatorMiddleware.validate,
   MatchController.create,
 );
 routes.patch('/matches/:id/finish', MatchController.finishMatch);
