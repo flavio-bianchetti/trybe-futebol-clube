@@ -7,6 +7,8 @@ import Team from '../models/Team';
 export default class MatchService {
   public static findAll = async (): Promise<IMatch[]> => {
     const matches = await Match.findAll({
+      // solução adaptada do site:
+      // https://stackoverflow.com/questions/57417141/sequelize-query-taking-too-long-time
       include: [
         { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
