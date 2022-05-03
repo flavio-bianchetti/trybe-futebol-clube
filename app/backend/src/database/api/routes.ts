@@ -14,7 +14,7 @@ routes.use(cors());
 routes.post('/login', LoginValidatorMiddleware.validate, UserController.create);
 routes.get('/login/validate', TokenValidator.validate, UserController.getRole);
 
-routes.get('/teams', TokenValidator.validate, TeamController.findAll);
+routes.get('/teams', TeamController.findAll);
 routes.get(
   '/teams/:id',
   TokenValidator.validate,
@@ -22,6 +22,6 @@ routes.get(
   TeamController.findByPk,
 );
 
-routes.get('/matches', TokenValidator.validate, MatchController.findAll);
+routes.get('/matches', MatchController.findAll);
 
 export default routes;
