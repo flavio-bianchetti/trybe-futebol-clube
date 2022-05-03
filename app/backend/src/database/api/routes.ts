@@ -33,5 +33,6 @@ routes.post(
   MatchValidatorMiddleware.validate,
   MatchController.create,
 );
+routes.patch('/matches/:id/finish', MatchController.finishMatch);
 
 export default routes;
