@@ -12,6 +12,7 @@ export default class MatchService {
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
       raw: true,
+      nest: true,
     });
     return matches;
   };
