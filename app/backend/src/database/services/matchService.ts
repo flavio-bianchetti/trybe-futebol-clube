@@ -16,4 +16,17 @@ export default class MatchService {
     });
     return matches;
   };
+
+  public static create = async (match: IMatch): Promise<IMatch | undefined | null> => {
+    if (match.homeTeam === match.awayTeam) return undefined;
+    Team.findAll()
+      .then((teams) => {
+        const existsTeam1 = teams.find((team) => team.id === match.homeTeam);
+        const existsTeam2 = teams.find((team) => team.id === match.awayTeam);
+        if (!existsTeam1 || !existsTeam2) return null;
+      });
+    const result = await Match.create(match);
+    if (!result) return undefined;
+    return result;
+  };
 }
