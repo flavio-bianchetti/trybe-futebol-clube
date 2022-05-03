@@ -1,3 +1,4 @@
+import * as Sequelize from 'sequelize';
 import { IMatch } from '../interfaces';
 import Match from '../models/Match';
 import Team from '../models/Team';
@@ -37,5 +38,16 @@ export default class MatchService {
     const result = await Match.create(match);
     if (!result) return undefined;
     return result;
+  };
+
+  public static finishMatch =
+  async (id: number): Promise<number> => {
+    // solução adaptada do site:
+    // https://stackoverflow.com/questions/38689561/typescript-incorrect-interface-for-sequelize-model-update
+    const [rowsAffected] = await Match.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return rowsAffected;
   };
 }
