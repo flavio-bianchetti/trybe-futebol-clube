@@ -5,7 +5,8 @@ export default class TokenValidator {
   public static validate =
   async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-      const token = req.params.authorization;
+      const token = req.headers.authorization;
+      if (!token) return res.status(401).json({ message: 'Invalid token' });
       const result = await Token.verify(token);
       if (!result) return res.status(401).json({ message: 'Invalid token' });
       next();
