@@ -50,4 +50,13 @@ export default class MatchService {
     );
     return rowsAffected;
   };
+
+  public static updateMatch =
+  async (id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<number> => {
+    const [rowsAffected] = await Match.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return rowsAffected;
+  };
 }
