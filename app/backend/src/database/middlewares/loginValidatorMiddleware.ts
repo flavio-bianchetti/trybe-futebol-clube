@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { ILogin } from '../interfaces';
 
 export default class LoginValidatorMiddleware {
   private static emailValidator = (email: string): boolean => {
@@ -13,7 +14,7 @@ export default class LoginValidatorMiddleware {
   public static validate =
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, password } = req.body;
+      const { email, password }: ILogin = req.body;
 
       if (!email || !password) {
         return res.status(400).json({ message: 'All fields must be filled' });
