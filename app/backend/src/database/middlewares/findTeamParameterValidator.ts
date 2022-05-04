@@ -5,7 +5,7 @@ export default class FindTeamParameterValidator {
   (req: Request, res: Response, next: NextFunction): Response | undefined => {
     try {
       const { id } = req.params;
-      if (!id || typeof Number(id) !== 'number') {
+      if (!id || !Number(id)) {
         return res.status(421).json({ message: 'Invalid parameter' });
       }
       next();
