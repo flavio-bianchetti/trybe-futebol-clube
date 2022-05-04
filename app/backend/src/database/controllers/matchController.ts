@@ -51,4 +51,18 @@ export default class MatchController {
       return res.status(500).json({ error: err });
     }
   };
+
+  public static updateMatch =
+  async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      const result = await MatchService.updateMatch(Number(id), homeTeamGoals, awayTeamGoals);
+      if (result === 0) return res.status(400).json({ message: 'Match not found or changed' });
+      return res.status(200).json({ message: 'Match updated' });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: err });
+    }
+  };
 }
