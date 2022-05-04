@@ -10,6 +10,7 @@ import {
   FindTeamParameterValidator,
   TokenValidator,
   // MatchValidatorMiddleware,
+  // UpdateMatchValidatorMiddleware,
 } from '../middlewares';
 
 const routes = Router();
@@ -32,6 +33,11 @@ routes.post(
   TokenValidator.validate,
   // MatchValidatorMiddleware.validate,
   MatchController.create,
+);
+routes.patch(
+  '/matches/:id',
+  // UpdateMatchValidatorMiddleware.validate,
+  MatchController.updateMatch,
 );
 routes.patch('/matches/:id/finish', MatchController.finishMatch);
 
