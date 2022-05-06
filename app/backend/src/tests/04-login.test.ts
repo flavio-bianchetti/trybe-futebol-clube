@@ -14,11 +14,11 @@ const { expect } = chai;
 
 describe('4 - A aplicação deve ter o endpoint POST /login', () => {
 
-  beforeEach( async () => {
+  beforeEach(() => {
     exec('npm run db:reset');
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     (User.findOne as sinon.SinonStub).restore();
   });
 
