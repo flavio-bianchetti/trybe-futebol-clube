@@ -3,9 +3,16 @@ import { MatchService } from '../services';
 
 export default class MatchController {
   public static findAll =
-  async (_req: Request, res: Response): Promise<Response> => {
+  async (req: Request, res: Response): Promise<Response> => {
     try {
-      const matches = await MatchService.findAll();
+      const { inProgress } = req.query;
+      let matches;
+      if (!inProgress) {
+        matches = await MatchService.findAll();
+      } else {
+        const type = inProgress === 'true';
+        matches = await MatchService.findAllInProgress(type);
+      }
       return res.status(200).json(matches);
     } catch (err) {
       console.error(err);
