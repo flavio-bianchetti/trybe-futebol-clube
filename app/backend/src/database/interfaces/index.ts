@@ -5,6 +5,7 @@ import IUserToken from './IUserToken';
 import IMatchTeamsNames from './IMatchTeamsNames';
 import IGoals from './IGoals';
 import ILogin from './ILogin';
+import ILeaderboard from './ILeaderboard';
 
 export {
   IMatch,
@@ -14,4 +15,5 @@ export {
   IMatchTeamsNames,
   IGoals,
   ILogin,
+  ILeaderboard,
 };
