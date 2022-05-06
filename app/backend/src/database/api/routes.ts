@@ -4,6 +4,7 @@ import {
   UserController,
   TeamController,
   MatchController,
+  LeaderboardController,
 } from '../controllers';
 import {
   LoginValidatorMiddleware,
@@ -40,5 +41,7 @@ routes.patch(
   MatchController.updateMatch,
 );
 routes.patch('/matches/:id/finish', MatchController.finishMatch);
+
+routes.get('/leaderboard/home', LeaderboardController.findAll);
 
 export default routes;
