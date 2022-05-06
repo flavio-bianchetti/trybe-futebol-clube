@@ -20,6 +20,21 @@ export default class MatchService {
     return matches;
   };
 
+  public static findAllInProgress = async (inProgress: boolean): Promise<IMatch[]> => {
+    const matches = await Match.findAll({
+      where: { inProgress },
+      // solução adaptada do site:
+      // https://stackoverflow.com/questions/57417141/sequelize-query-taking-too-long-time
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+      raw: true,
+      nest: true,
+    });
+    return matches;
+  };
+
   public static create = async (match: IMatch): Promise<IMatch | undefined | null> => {
     if (match.homeTeam === match.awayTeam) return undefined;
     const teams = await Team.findAll(
