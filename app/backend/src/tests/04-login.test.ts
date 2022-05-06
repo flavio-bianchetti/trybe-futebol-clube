@@ -43,7 +43,7 @@ describe('4 - A aplicação deve ter o endpoint POST /login', () => {
       "role": "admin",
       "email": "admin@admin.com",
       "password": '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
-    } as any | IUser);
+    } as any | IUser); // Não aceita tipagem IUser - resolver problema posteriormente
 
     const chaiHttpResponse = await chai
       .request(app)
