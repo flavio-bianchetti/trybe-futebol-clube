@@ -14,11 +14,11 @@ const { expect } = chai;
 
 describe('15 - A aplicação deve ter o endpoint GET /teams', () => {
 
-  beforeEach( async () => {
+  beforeEach(() => {
     exec('npm run db:reset');
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     (Team.findAll as sinon.SinonStub).restore();
   });
 
@@ -48,11 +48,11 @@ describe('15 - A aplicação deve ter o endpoint GET /teams', () => {
 
 describe('15 - A aplicação deve ter o endpoint GET /teams/:id', () => {
 
-    beforeEach( async () => {
+    beforeEach(() => {
       exec('npm run db:reset');
     });
   
-    afterEach(async () => {
+    afterEach(() => {
       (Team.findByPk as sinon.SinonStub).restore();
     });
   
